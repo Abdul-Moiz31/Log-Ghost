@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "title": "Log Ghost — Stop shipping console.logs to production",
+    "description": "Find debug logs, see who added them with git blame, and block yours before production. VS Code extension.",
+    "githubUser": "Abdul-Moiz31",
+    "githubRepo": "log-ghost",
+    "marketplaceSearchUrl": "https://marketplace.visualstudio.com/search?term=log-ghost&target=VSCode",
+    "marketplaceVscode": "https://marketplace.visualstudio.com/vscode"
+  },
+  "nav": {
+    "brand": "Log Ghost",
+    "links": [
+      { "id": "features", "label": "Features" },
+      { "id": "how", "label": "How it works" },
+      { "id": "pricing", "label": "Pricing" }
+    ],
+    "cta": { "label": "Install for VS Code", "href": "https://marketplace.visualstudio.com/search?term=log-ghost&target=VSCode" }
+  },
+  "hero": {
+    "headline": "Stop shipping console.logs to production",
+    "subhead": "Log Ghost finds every debug statement in your codebase, tells you who added it, and removes yours before you commit. Your teammates' logs stay untouched.",
+    "primaryCta": { "label": "Install free", "href": "https://marketplace.visualstudio.com/search?term=log-ghost&target=VSCode" },
+    "secondaryCta": { "label": "See how it works", "hash": "#how" },
+    "proofLine": "Used by 2,400+ developers · Rated 4.9 on VS Code Marketplace"
+  },
+  "heroMock": {
+    "fileName": "src/auth/token.ts",
+    "rows": [
+      {
+        "line": 40,
+        "severity": "critical",
+        "codelens": "critical · you · 2 hrs ago · remove · keep",
+        "codeHtml": "<span class=\"v\">console</span><span class=\"p\">.</span><span class=\"fn\">log</span><span class=\"p\">(</span><span class=\"v\">token</span><span class=\"p\">, </span><span class=\"v\">secret</span><span class=\"p\">)</span>"
+      },
+      {
+        "line": 44,
+        "severity": "debug",
+        "codelens": "debug log · sara · 3 days ago · remove · keep",
+        "codeHtml": "<span class=\"v\">console</span><span class=\"p\">.</span><span class=\"fn\">log</span><span class=\"p\">(</span><span class=\"s\">'auth ok'</span><span class=\"p\">)</span>"
+      },
+      {
+        "line": 49,
+        "severity": "safe",
+        "codelens": "safe · ali · 2 weeks ago",
+        "codeHtml": "<span class=\"v\">console</span><span class=\"p\">.</span><span class=\"fn\">log</span><span class=\"p\">(</span><span class=\"s\">'server started'</span><span class=\"p\">)</span>"
+      }
+    ]
+  },
+  "stats": [
+    { "value": "2,400+", "label": "developers" },
+    { "value": "14,000+", "label": "installs" },
+    { "value": "4.9 / 5", "label": "rating" },
+    { "value": "0", "label": "false positives on critical logs" }
+  ],
+  "features": {
+    "headline": "Everything you need, nothing you don't",
+    "lead": "Built for the editor, not a dashboard.",
+    "items": [
+      {
+        "title": "Git blame integration",
+        "body": "Knows exactly who added every log. Only flags yours — never creates noise about logs your teammates wrote intentionally."
+      },
+      {
+        "title": "Pre-commit gate",
+        "body": "Intercepts your commit if you have debug logs in staged files. One click to clean them. Or override and commit anyway — no judgment."
+      },
+      {
+        "title": "Severity classification",
+        "body": "Automatically classifies logs as critical (sensitive data), debug (noise), or safe (intentional). Color-coded in the gutter."
+      },
+      {
+        "title": "Codebase-wide panel",
+        "body": "A full sidebar showing every log across every file. Filter by author, severity, or file. Remove in bulk or one at a time."
+      },
+      {
+        "title": "Inline CodeLens",
+        "body": "Author, timestamp, severity — all visible above the line without opening any panel. Remove or keep without leaving the editor."
+      },
+      {
+        "title": "Zero config",
+        "body": "Works the moment you install it. Reads your git config. No setup files, no tokens, no team account required."
+      }
+    ]
+  },
+  "howItWorks": {
+    "headline": "How it works",
+    "lead": "Three steps from chaos to clean commits.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Scans on save",
+        "body": "Log Ghost scans your workspace on every file save and builds a map of every console.log with its severity and git blame data."
+      },
+      {
+        "n": 2,
+        "title": "Shows you what matters",
+        "body": "Your logs get flagged. Teammates' logs are visible but dimmed. The sidebar shows everything. The editor shows just what needs action."
+      },
+      {
+        "n": 3,
+        "title": "Cleans before commit",
+        "body": "When you commit, Log Ghost checks staged files for your debug logs and gives you one chance to remove them before the push."
+      }
+    ]
+  },
+  "editorShowcase": {
+    "headline": "See it in the editor",
+    "lead": "Side-by-side: workspace overview and inline context.",
+    "sidebar": {
+      "title": "Log Ghost",
+      "action": "Remove mine (4)",
+      "filters": ["All", "Added by me", "Critical"],
+      "activeFilterIndex": 0,
+      "file": { "name": "authService.ts", "sub": "2 critical · 1 mine" },
+      "lines": [
+        { "line": 40, "severity": "critical", "preview": "log(token…)" },
+        { "line": 48, "severity": "debug", "preview": "log('ok')" }
+      ]
+    }
+  },
+  "pricing": {
+    "headline": "Pricing",
+    "lead": "One tier. Everything included.",
+    "tierName": "Free",
+    "price": "$0",
+    "priceNote": "forever",
+    "bullets": [
+      "Unlimited log detection",
+      "Git blame integration",
+      "Sidebar panel",
+      "CodeLens",
+      "1 workspace"
+    ],
+    "cta": { "label": "Install free", "href": "https://marketplace.visualstudio.com/search?term=log-ghost&target=VSCode" }
+  },
+  "finalCta": {
+    "headline": "Clean code starts before the PR",
+    "sub": "Install in 30 seconds. No account required.",
+    "button": { "label": "Install for VS Code — it's free", "href": "https://marketplace.visualstudio.com/search?term=log-ghost&target=VSCode" }
+  },
+  "footer": {
+    "tagline": "No more 'oops, left a console.log'",
+    "bottom": "Built for developers who care about clean commits",
+    "links": [
+      { "label": "GitHub", "href": "https://github.com/Abdul-Moiz31" },
+      { "label": "Changelog", "href": "https://github.com/Abdul-Moiz31/log-ghost/releases" },
+      { "label": "Twitter", "href": "https://twitter.com" },
+      { "label": "VS Code Marketplace", "href": "https://marketplace.visualstudio.com/vscode" }
+    ]
+  },
+  "theme": {
+    "bg": "#0f0f11",
+    "surface": "#17171a",
+    "border": "#2a2a2f",
+    "text": "#f0f0f2",
+    "muted": "#8b8b9a",
+    "accent": "#7F77DD",
+    "critical": "#E24B4A",
+    "warn": "#EF9F27",
+    "safe": "#639922",
+    "purplePanel": "#1a1830"
+  }
+}

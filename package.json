@@ -1,0 +1,271 @@
+{
+  "name": "log-ghost",
+  "displayName": "Log Ghost",
+  "description": "Find, classify, and remove debug logging \u2014 with git blame, workspace view, and optional pre-commit hook.",
+  "version": "1.00",
+  "publisher": "local",
+  "author": {
+    "name": "Abdul-Moiz31",
+    "url": "https://github.com/Abdul-Moiz31"
+  },
+  "homepage": "https://abdul-moiz31.github.io/log-ghost/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Abdul-Moiz31/log-ghost.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Abdul-Moiz31/log-ghost/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "debug",
+    "console",
+    "logging",
+    "git",
+    "blame",
+    "cleanup",
+    "typescript",
+    "javascript",
+    "python"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "icon": "media/log-ghost-logo.png",
+  "contributes": {
+    "configuration": {
+      "title": "Log Ghost",
+      "properties": {
+        "logGhost.languages": {
+          "type": "array",
+          "default": [
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "python",
+            "go",
+            "php"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Language IDs to include in workspace scans and the active editor."
+        },
+        "logGhost.customPatterns": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "Extra case-insensitive RegExp sources (one line at a time)."
+        },
+        "logGhost.ignoredPatterns": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "Lines matching any of these patterns are never flagged."
+        },
+        "logGhost.currentUserEmail": {
+          "type": "string",
+          "default": "",
+          "description": "Override `git config user.email` when deciding if a line is \u201cyours\u201d."
+        },
+        "logGhost.preCommitHook": {
+          "type": "boolean",
+          "default": true,
+          "description": "Install / update `.git/hooks/pre-commit` to block commits with your debug lines in the index."
+        },
+        "logGhost.showCodeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show CodeLens (severity, author, remove, keep, ignore always)."
+        },
+        "logGhost.inlineHighlight": {
+          "type": "boolean",
+          "default": true,
+          "description": "Inline highlight on the matched span."
+        },
+        "logGhost.liveDebounceMs": {
+          "type": "number",
+          "default": 150,
+          "minimum": 0,
+          "maximum": 2000,
+          "description": "Debounce for re-scan while typing."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "logGhost.cleanCurrentFile",
+        "key": "ctrl+shift+;",
+        "mac": "cmd+shift+;",
+        "when": "editorTextFocus && !inDebugRepl"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "logGhost",
+          "title": "Log Ghost",
+          "icon": "media/activity-logGhost.svg"
+        }
+      ]
+    },
+    "views": {
+      "logGhost": [
+        {
+          "id": "logGhost.explorer",
+          "name": "Logs"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "logGhost.filter.all",
+          "when": "view == logGhost.explorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "logGhost.filter.mine",
+          "when": "view == logGhost.explorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "logGhost.filter.teammates",
+          "when": "view == logGhost.explorer",
+          "group": "navigation@3"
+        },
+        {
+          "command": "logGhost.filter.critical",
+          "when": "view == logGhost.explorer",
+          "group": "navigation@4"
+        },
+        {
+          "command": "logGhost.removeMineInWorkspace",
+          "when": "view == logGhost.explorer",
+          "group": "1_edit@1"
+        },
+        {
+          "command": "logGhost.removeAllInWorkspace",
+          "when": "view == logGhost.explorer",
+          "group": "1_edit@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "logGhost.tree.removeLine",
+          "when": "view == logGhost.explorer && viewItem == logGhostLine",
+          "group": "1_logGhost"
+        },
+        {
+          "command": "logGhost.tree.keepLine",
+          "when": "view == logGhost.explorer && viewItem == logGhostLine",
+          "group": "1_logGhost@2"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "logGhost.cleanCurrentFile",
+          "when": "editorTextFocus && logGhost:hasRemovableStandalone",
+          "group": "navigation@98"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "logGhost.severityNop",
+        "title": "Log Ghost: (code lens header)"
+      },
+      {
+        "command": "logGhost.removeEnriched",
+        "title": "Log Ghost: Remove line"
+      },
+      {
+        "command": "logGhost.keepSession",
+        "title": "Log Ghost: Dismiss (session)"
+      },
+      {
+        "command": "logGhost.ignoreToFile",
+        "title": "Log Ghost: Ignore (write logGhost.ignore)"
+      },
+      {
+        "command": "logGhost.reveal",
+        "title": "Log Ghost: Reveal in editor"
+      },
+      {
+        "command": "logGhost.filter.all",
+        "title": "Filter: all",
+        "icon": "$(list-flat)"
+      },
+      {
+        "command": "logGhost.filter.mine",
+        "title": "Filter: mine",
+        "icon": "$(account)"
+      },
+      {
+        "command": "logGhost.filter.teammates",
+        "title": "Filter: teammates",
+        "icon": "$(organization)"
+      },
+      {
+        "command": "logGhost.filter.critical",
+        "title": "Filter: critical",
+        "icon": "$(error)"
+      },
+      {
+        "command": "logGhost.removeMineInWorkspace",
+        "title": "Remove mine (all files)\u2026",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "logGhost.removeAllInWorkspace",
+        "title": "Remove all (all files)\u2026",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "logGhost.tree.removeLine",
+        "title": "Remove line"
+      },
+      {
+        "command": "logGhost.tree.keepLine",
+        "title": "Keep (session)"
+      },
+      {
+        "command": "logGhost.focusView",
+        "title": "Log Ghost: Open sidebar"
+      },
+      {
+        "command": "logGhost.cleanCurrentFile",
+        "title": "Log Ghost: Strip standalone lines in file",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "logGhost.precommitCheck",
+        "title": "Log Ghost: Pre-commit check (staged, modal)"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.3.0"
+  }
+}
