@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# TypeScript / build output (run `npm run compile` after clone)
+out/
+*.tsbuildinfo
+
+# Packaged extension
+*.vsix
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local env
+!.env.example
+
+# VS Code extension test runner
+
+# Optional: uncomment if you use test coverage
+# coverage/
+.gitignore
