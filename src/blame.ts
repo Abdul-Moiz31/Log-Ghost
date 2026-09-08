@@ -145,4 +145,3 @@ export function isMineEmailBlame(
   }
   return blameEmail.trim().toLowerCase() === userEmail;
 }
-
